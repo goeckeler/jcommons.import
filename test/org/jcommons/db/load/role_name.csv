@@ -1,0 +1,7 @@
+role_id, language_id, name
+10, de, Anwender
+20, de, Bearbeiter
+30, de, Administrator
+10, en, User
+20, en, Author
+30, en, Administrator
