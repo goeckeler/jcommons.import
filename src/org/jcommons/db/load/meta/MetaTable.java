@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jcommons.db.column.MetaColumn;
 import org.jcommons.db.column.MetaColumnUtils;
 import org.jcommons.db.exception.TableNotFoundException;
-import org.jcommons.lang.string.MessageUtils;
+import org.jcommons.lang.string.NamedString;
 
 /**
  * Utility class to retrieve the meta data for a given table.
@@ -39,7 +39,7 @@ public final class MetaTable
   {
     Map<String, String> parameter = new HashMap<String, String>();
     parameter.put("table", StringUtils.upperCase(tableName));
-    String sql = MessageUtils.message(SELECT).with("table", tableName).toString();
+    String sql = NamedString.message(SELECT).with("table", tableName).toString();
 
     List<MetaColumn> columns = null;
     try {

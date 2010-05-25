@@ -1,11 +1,12 @@
 package org.jcommons.io.sheet;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.jcommons.db.column.MetaColumn;
 import org.jcommons.io.text.Table;
-import org.jcommons.lang.string.MessageUtils;
+import org.jcommons.lang.string.NamedString;
 import org.jcommons.message.*;
 
 
@@ -22,7 +23,6 @@ public class Sheet
   private String name;
   private Table table;
   private List<MetaColumn> columns;
-  private Map<String, MetaColumn> columnMap;
 
   /** @return the name of this sheet, never null */
   public String getName() {
@@ -77,7 +77,7 @@ public class Sheet
   private static final String COLUMN_MISSING = "Table \"${table}\" has no column \"${column}\".";
 
   private String error(final String message, final String table, final String column) {
-    return MessageUtils.message(message).with("table", table).with("column", column).toString();
+    return NamedString.message(message).with("table", table).with("column", column).toString();
   }
 
   /**
@@ -120,5 +120,26 @@ public class Sheet
       }
     }
     return errors;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean equals(final Object other) {
+    if (this == other) return true;
+    if (other == null) return false;
+    if (!this.getClass().isAssignableFrom(other.getClass())) return false;
+
+    Sheet that = (Sheet) other;
+
+    // very lazy, but as the sheet name indicates the unique table name should do the trick
+    boolean equals = StringUtils.equalsIgnoreCase(this.getName(), that.getName());
+    // should actually test for table as well
+    return equals;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public int hashCode() {
+    return getName().hashCode();
   }
 }

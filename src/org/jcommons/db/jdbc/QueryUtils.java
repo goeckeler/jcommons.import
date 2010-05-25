@@ -6,7 +6,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.jcommons.db.exception.TableNotFoundException;
-import org.jcommons.lang.string.MessageUtils;
+import org.jcommons.lang.string.NamedString;
 
 
 /**
@@ -33,7 +33,7 @@ public final class QueryUtils
    public static int countRows(final DataSource dataSource, final String tableName)
     throws TableNotFoundException
   {
-    String sql = MessageUtils.message(COUNT).with("table", tableName).toString();
+    String sql = NamedString.message(COUNT).with("table", tableName).toString();
 
     int count = 0;
     try {

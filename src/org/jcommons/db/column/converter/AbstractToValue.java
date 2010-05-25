@@ -1,7 +1,7 @@
 package org.jcommons.db.column.converter;
 
 import org.jcommons.db.column.MetaColumn;
-import org.jcommons.lang.string.MessageUtils;
+import org.jcommons.lang.string.NamedString;
 import org.jcommons.lang.string.StringUtils;
 import org.jcommons.message.Fault;
 import org.jcommons.message.Message;
@@ -21,7 +21,7 @@ public abstract class AbstractToValue<T>
   public T valueOf(final MetaColumn meta, final String value, final Message validation) {
     if (StringUtils.isBlank(value)) {
       if (meta != null && meta.isNotNullable()) {
-        MessageUtils fault = MessageUtils.message(REQUIRED).with("table", meta.getTable());
+        NamedString fault = NamedString.message(REQUIRED).with("table", meta.getTable());
         fault.with("column", meta.getName());
         validation.add(new Fault(fault.toString()));
       }
@@ -51,8 +51,8 @@ public abstract class AbstractToValue<T>
    * @param value the current value of the object
    * @return the message utility class to be used to generate the validation message
    */
-  protected MessageUtils message(final String message, final MetaColumn meta, final Object value) {
-    MessageUtils text = MessageUtils.message(message).with("table", meta.getTable());
+  protected NamedString message(final String message, final MetaColumn meta, final Object value) {
+    NamedString text = NamedString.message(message).with("table", meta.getTable());
     text.with("column", meta.getName()).with("value", value).with("size", meta.getSize());
     text.with("precision", meta.getPrecision()).with("fraction", meta.getFraction());
     return text;
