@@ -8,9 +8,10 @@ import javax.sql.DataSource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jcommons.db.load.sort.DependencySheetSorter;
+import org.jcommons.db.load.sort.SheetSortingStrategy;
 import org.jcommons.io.sheet.Book;
 import org.jcommons.io.sheet.Sheet;
-
 
 /**
  * Merges a book into the given data source.
@@ -24,8 +25,9 @@ public class DatabaseLoader
   private static final Log LOG = LogFactory.getLog(DatabaseLoader.class);
 
   private DataSource dataSource;
+  private SheetSortingStrategy sheetSorter;
 
-   /** @return the currently used data source */
+  /** @return the currently used data source */
   public DataSource getDataSource() {
     return dataSource;
   }
@@ -65,10 +67,18 @@ public class DatabaseLoader
       LOG.info(log.toString());
     }
 
-    // simple load strategy, load every sheet in one go, but all sheets in the same transaction
+    // simple load strategy, first load every sheet with mandatory fields, then update with the rest
     SheetLoader loader = new SheetLoader().setDataSource(getDataSource());
-    for (Sheet sheet : getSheets(book)) {
+    List<Sheet> sheets = getSheets(book);
+
+    // load mandatory fields (and primary keys to ensure foreign key relationships)
+    for (Sheet sheet : sheets) {
       loader.load(sheet);
+    }
+
+    // load all other data including foreign keys that can be referenced now
+    for (Sheet sheet : sheets) {
+      loader.update(sheet);
     }
 
     if (LOG.isInfoEnabled()) {
@@ -85,8 +95,8 @@ public class DatabaseLoader
    * @return the ordered list of sheets
    */
   protected List<Sheet> getSheets(final Book book) {
-    // for the time being return in same order as given in the sheet
-    return book.getSheets();
+    getSheetSorter().setDataSource(getDataSource());
+    return getSheetSorter().sort(book.getSheets());
   }
 
   /**
@@ -102,5 +112,20 @@ public class DatabaseLoader
     }
 
     return text.toString();
+  }
+
+  /** @return currently used sorting strategy for the sheets or a default implementation */
+  public SheetSortingStrategy getSheetSorter() {
+    if (sheetSorter == null) sheetSorter = new DependencySheetSorter();
+    return sheetSorter;
+  }
+
+  /**
+   * Define a sheet sorting strategy other than the default one.
+   *
+   * @param sheetSorter the sheet sorting strategy to use, <code>null</code> to reset to default implementation
+   */
+  public void setSheetSorter(final SheetSortingStrategy sheetSorter) {
+    this.sheetSorter = sheetSorter;
   }
 }

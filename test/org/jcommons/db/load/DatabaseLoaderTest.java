@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.jcommons.db.column.ColumnDataProvider;
 import org.jcommons.db.jdbc.QueryUtils;
 import org.jcommons.db.load.meta.MetaTable;
 import org.jcommons.io.sheet.Book;
@@ -129,9 +130,13 @@ public class DatabaseLoaderTest
       assertNotNull(sheet);
 
       sheet.setName("language");
-      sheet.setColumns(MetaTable.getMetaData(createMemoryDataSource(), sheet.getName()));
+      ColumnDataProvider dataProvider = new ColumnDataProvider();
+      sheet.setDataProvider(dataProvider);
+      dataProvider.setTable(sheet.getName());
+      dataProvider.setMetaColumns(MetaTable.getMetaData(createMemoryDataSource(), sheet.getName()));
+      dataProvider.setHeaders(sheet.getTable().getColumns().toArray(new String[0]));
 
-      Message errors = sheet.validateColumns();
+      Message errors = dataProvider.validateTable();
       assertFalse(errors.isEmpty());
       assertEquals(2, errors.getTexts().size());
 
