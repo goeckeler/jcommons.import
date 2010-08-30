@@ -4,28 +4,11 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/commons/commons-io-1.4.jar" sourcepath="lib-doc/commons-io-1.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/jimp/lib-doc/commons-io-1.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/db/commons-dbutils-1.3.jar" sourcepath="lib-doc/commons-dbutils-1.3-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/jimp/lib-doc/commons-dbutils-1.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/logging/commons-logging-1.1.1.jar" sourcepath="lib-doc/commons-logging-1.1.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/jimp/lib-doc/commons-logging-1.1.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/logging/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="lib/poi/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="lib/poi/geronimo-stax-api_1.0_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/poi/poi-3.6-20091214.jar"/>
-	<classpathentry kind="lib" path="lib/poi/poi-ooxml-3.6-20091214.jar"/>
-	<classpathentry kind="lib" path="lib/poi/poi-ooxml-schemas-3.6-20091214.jar"/>
-	<classpathentry kind="lib" path="lib/poi/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/db/commons-dbcp-1.4.jar" sourcepath="lib-doc/commons-dbcp-1.4-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/jimp/lib-doc/commons-dbcp-1.4-javadoc.jar!/"/>
@@ -49,5 +32,12 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/jcommons.lang/lib-doc/joda-time-1.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/jcommons.io"/>
+	<classpathentry kind="lib" path="/jcommons.io/lib/logging/commons-logging-1.1.1.jar" sourcepath="/jcommons.io/lib-doc/commons-logging-1.1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/jcommons.io/lib-doc/commons-logging-1.1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/jcommons.io/lib/logging/log4j-1.2.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

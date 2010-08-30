@@ -8,7 +8,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.jcommons.db.exception.TableNotFoundException;
 import org.jcommons.lang.string.NamedString;
 
-
 /**
  * Utility class to facilitate easy access to the database.
  *
@@ -30,7 +29,7 @@ public final class QueryUtils
    * @return the number of rows in the table
    * @throws TableNotFoundException if database cannot be accessed or privileges are missing
    */
-   public static int countRows(final DataSource dataSource, final String tableName)
+  public static int countRows(final DataSource dataSource, final String tableName)
     throws TableNotFoundException
   {
     String sql = NamedString.message(COUNT).with("table", tableName).toString();
@@ -43,5 +42,4 @@ public final class QueryUtils
     }
     return count;
   }
-
 }
