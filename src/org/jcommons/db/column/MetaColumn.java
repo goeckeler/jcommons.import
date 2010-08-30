@@ -60,9 +60,7 @@ public class MetaColumn
         return MetaType.DATE;
       } else if (isNumeric()) {
         return MetaType.NUMBER;
-      } else if (!"ANY".equalsIgnoreCase(getSimpleType())) {
-        return MetaType.STRING;
-      }
+      } else if (!"ANY".equalsIgnoreCase(getSimpleType())) { return MetaType.STRING; }
     }
 
     return null;
@@ -218,6 +216,25 @@ public class MetaColumn
       }
     }
     return false;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public int hashCode() {
+    StringBuilder text = new StringBuilder(StringUtils.defaultString(getTable()));
+    text.append(".").append(StringUtils.defaultString(getName()));
+    return text.toString().hashCode();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public boolean equals(final Object other) {
+    if (this == other) return true;
+    if (other == null) return false;
+    if (!this.getClass().isAssignableFrom(other.getClass())) return false;
+
+    MetaColumn that = (MetaColumn) other;
+    return StringUtils.equals(this.toString(), that.toString());
   }
 
   /** {@inheritDoc} */
