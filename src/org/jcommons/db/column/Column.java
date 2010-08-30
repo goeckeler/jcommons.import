@@ -12,7 +12,7 @@ import org.jcommons.message.Messages;
  * shall be stored to. In other words it holds the value for a certain column of a certain row for a given table, e.g.:
  *
  * <pre>
- * customer.name = &quot;x-root&quot;
+ * customer.name = &quot;General Motors&quot;
  * </pre>
  *
  * @author Thorsten Goeckeler
