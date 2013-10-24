@@ -42,5 +42,5 @@ import java.io.Serializable;
 public class QueryString
   implements Serializable
 {
-
+  private static final long serialVersionUID = -4350007400588806587L;
 }
